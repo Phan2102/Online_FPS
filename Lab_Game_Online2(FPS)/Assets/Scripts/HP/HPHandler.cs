@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class HPHandler : NetworkBehaviour
 {
     [Networked]
-    byte HP { get; set; }
+    public byte HP { get; set; }
 
     [Networked]
     public bool isDead { get; set; }
@@ -28,6 +28,9 @@ public class HPHandler : NetworkBehaviour
     public bool SkipSettingStartValues = false;
 
     ChangeDetector changeDetector;
+
+    public event System.Action<byte> OnHealthChanged;
+
 
     //components
     HitboxRoot hitboxRoot;
@@ -128,8 +131,12 @@ public class HPHandler : NetworkBehaviour
 
     void OnHPChanged(byte previous, byte current)
     {
-        if(current < previous)
-           OnHPReduced();
+        if (current < previous)
+        {
+            OnHPReduced();
+        }
+
+        OnHealthChanged?.Invoke(current);
     }
     
     private void OnHPReduced()

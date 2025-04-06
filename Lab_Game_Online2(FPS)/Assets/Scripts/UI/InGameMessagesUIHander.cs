@@ -16,7 +16,7 @@ public class InGameMessagesUIHander : MonoBehaviour
 
     public void OnGameMessageReceived(string message)
     {
-        Debug.Log($"InGameMessagesUIHander {message}");
+        //Debug.Log($"InGameMessagesUIHander {message}");
 
         messageQueue.Enqueue( message );
 
