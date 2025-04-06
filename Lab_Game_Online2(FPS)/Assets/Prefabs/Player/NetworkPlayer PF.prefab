@@ -526,6 +526,7 @@ MonoBehaviour:
   _isFiring: 0
   _currentRocketAmmo: 15
   maxRocketAmmo: 15
+  characterAnimator: {fileID: 7221326893800514825}
 --- !u!114 &361478850399194763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,6 +557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1dfed6d2e5ed3b48851801252a25b42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _HP: 0
   _isDead: 0
   uiOnHitColor: {r: 1, g: 0.30699998, b: 0.30699998, a: 0.7882353}
   uiOnHitImage: {fileID: 8778368484362706339}
@@ -590,9 +592,9 @@ MonoBehaviour:
   Animator: {fileID: 7221326893800514825}
   ApplyTiming: 2
   SyncSettings: 79
-  StateHashes: 000000008a18fce4b9abd9d3f12c87ef65307b84518c7ecf15c4011a347f2e255449b848
-  TriggerHashes: 00000000abaa54e9
-  TotalWords: 4
+  StateHashes: 000000008a18fce4b9abd9d3347f2e25bb7031fbf12c87ef65307b84518c7ecf15c4011af50006479b544d38bad385b1f606dc90
+  TriggerHashes: 00000000abaa54e9bad385b1
+  TotalWords: 5
 --- !u!114 &3048261087157873078
 MonoBehaviour:
   m_ObjectHideFlags: 0

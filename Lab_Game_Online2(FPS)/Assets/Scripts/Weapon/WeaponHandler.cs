@@ -32,7 +32,8 @@ public class WeaponHandler : NetworkBehaviour
 
     public int maxRocketAmmo = 15;
 
-
+    public Animator characterAnimator;
+    private int _animIDShoot;
 
     ChangeDetector changeDetector;
 
@@ -55,6 +56,7 @@ public class WeaponHandler : NetworkBehaviour
         hpHandler = GetComponent<HPHandler>();
         networkPlayer = GetComponent<NetworkPlayer>();
         networkObject = GetComponent<NetworkObject>();
+        AssignAnimationIDs();
     }
     // Start is called before the first frame update
     void Start()
@@ -109,6 +111,8 @@ public class WeaponHandler : NetworkBehaviour
             return;
         
         StartCoroutine(FireEffectCO());
+
+        
 
         HPHandler hitHPHandler = CalculateFireDirection(aimForwardVector, cameraPosition, out Vector3 fireDirection);
 
@@ -243,13 +247,20 @@ public class WeaponHandler : NetworkBehaviour
     {
         isFiring = true;
 
-        if(networkPlayer.is3rdPersonCamera)
+        
+
+        if (networkPlayer.is3rdPersonCamera)
             fireParticleSystemRemotePlayer.Play(); 
         else fireParticleSystem.Play();
 
         yield return new WaitForSeconds(0.09f);
 
         isFiring = false;
+    }
+
+    private void AssignAnimationIDs()
+    {
+        _animIDShoot = Animator.StringToHash("Shoot");
     }
     void OnFireChanged(bool previous, bool current)
     {
@@ -261,7 +272,7 @@ public class WeaponHandler : NetworkBehaviour
     {
         if (!Object.HasInputAuthority)
             fireParticleSystemRemotePlayer.Play();
-
+        characterAnimator.SetTrigger(_animIDShoot);
         /*if (!Object.HasInputAuthority && networkPlayer.isBot)
         {
             fireParticleSystem.Play();
