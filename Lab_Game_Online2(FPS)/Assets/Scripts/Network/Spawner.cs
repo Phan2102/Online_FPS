@@ -201,9 +201,9 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
     public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ArraySegment<byte> data) { }
 
     public void OnSceneLoadDone(NetworkRunner runner) 
-    { 
-        if(SceneManager.GetActiveScene().name != "Ready" && runner.IsServer)
-            SpawnBots();
+    {
+        /*if (SceneManager.GetActiveScene().name != "Ready" && runner.IsServer)
+            SpawnBots();*/
     }
 
     public void OnSceneLoadStart(NetworkRunner runner) { }

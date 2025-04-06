@@ -1,7 +1,8 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
+using TMPro;
 
 public class WeaponHandler : NetworkBehaviour
 {
@@ -13,6 +14,8 @@ public class WeaponHandler : NetworkBehaviour
     public ParticleSystem fireParticleSystem;
     public ParticleSystem fireParticleSystemRemotePlayer;
 
+    public TextMeshProUGUI refillUIText;
+
     [Header("Aim")]
     public Transform aimPoint;
 
@@ -22,6 +25,14 @@ public class WeaponHandler : NetworkBehaviour
 
     [Networked]
     public bool isFiring { get; set; }
+
+
+    [Networked]
+    public int currentRocketAmmo { get; set; } = 15; 
+
+    public int maxRocketAmmo = 15;
+
+
 
     ChangeDetector changeDetector;
 
@@ -185,7 +196,7 @@ public class WeaponHandler : NetworkBehaviour
 
     void FireRocket(Vector3 aimForwardVector, Vector3 cameraPosition)
     {
-        if (rocketFireDelay.ExpiredOrNotRunning(Runner))
+        if (rocketFireDelay.ExpiredOrNotRunning(Runner) && currentRocketAmmo > 0)
         {
             CalculateFireDirection(aimForwardVector, cameraPosition, out Vector3 fireDirection);
 
@@ -195,9 +206,39 @@ public class WeaponHandler : NetworkBehaviour
             });
 
             rocketFireDelay = TickTimer.CreateFromSeconds(Runner, 3.0f);
+
+            currentRocketAmmo--; 
         }
+
+        /*if (rocketFireDelay.ExpiredOrNotRunning(Runner) && currentRocketAmmo > 0)
+        {
+            CalculateFireDirection(aimForwardVector, cameraPosition, out Vector3 fireDirection);
+
+            Runner.Spawn(rocketPrefab, aimPoint.position + fireDirection * 1.5f, Quaternion.LookRotation(fireDirection), Object.InputAuthority, (runner, spawnedRocket) =>
+            {
+                spawnedRocket.GetComponent<RocketHandler>().Fire(Object.InputAuthority, networkObject, networkPlayer.nickName.ToString());
+            });
+
+            rocketFireDelay = TickTimer.CreateFromSeconds(Runner, 3.0f);
+
+            currentRocketAmmo--; 
+        }*/
     }
 
+    public void RefillRocketAmmo()
+    {
+        if (currentRocketAmmo < maxRocketAmmo)
+        {
+            currentRocketAmmo = maxRocketAmmo;
+            refillUIText.text = "Đạn rocket đã đầy";
+            StartCoroutine(HideRefillText());
+        }
+    }
+    IEnumerator HideRefillText()
+    {
+        yield return new WaitForSeconds(2f);
+        refillUIText.text = "";
+    }
     IEnumerator FireEffectCO()
     {
         isFiring = true;
