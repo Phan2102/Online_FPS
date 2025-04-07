@@ -54,7 +54,8 @@ public class CharacterOutfitHandler : NetworkBehaviour
             return;
 
         NetworkOutfit newOutfit = networkOutfit;
-        //
+
+        //random outfit
         newOutfit.headPrefabID = (byte)Random.Range(0, headPrefabs.Count);
 
         //cho phep layer animation hien thi

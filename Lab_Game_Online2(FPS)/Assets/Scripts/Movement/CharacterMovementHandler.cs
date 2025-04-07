@@ -103,13 +103,13 @@ public class CharacterMovementHandler : NetworkBehaviour
 
             characterAnimator.SetFloat("walkSpeed", walkSpeed);
 
-
-            //ktra co bi roi khoi world ko
+            
+             //ktra co bi roi khoi world ko
             CheckFallRespawn();
         }
     }
 
-
+   
     void CheckFallRespawn()
     {
         if (transform.position.y < -12)

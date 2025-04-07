@@ -19,6 +19,9 @@ public class HPHandler : NetworkBehaviour
     public Color uiOnHitColor;
     public Image uiOnHitImage;
 
+    public Animator characterAnimator;
+    private int _animIDHit;
+
     /*public MeshRenderer bodyMeshRenderer;
     Color defaulMeshBodyColor;*/
 
@@ -42,7 +45,7 @@ public class HPHandler : NetworkBehaviour
     {
         characterMovementHandler = GetComponent<CharacterMovementHandler>();
         hitboxRoot = GetComponentInChildren<HitboxRoot>();
-
+        AssignAnimationIDs();
         networkInGameMessages = GetComponent<NetworkInGameMessages>();
         networkPlayer = GetComponent<NetworkPlayer>();
     }
@@ -83,6 +86,10 @@ public class HPHandler : NetworkBehaviour
         }
     }
 
+    private void AssignAnimationIDs()
+    {
+        _animIDHit = Animator.StringToHash("Hit");
+    }
     IEnumerator OnHitCO()
     {
         //bodyMeshRenderer.material.color = Color.white;
@@ -143,6 +150,8 @@ public class HPHandler : NetworkBehaviour
     {
         if (!isInitialized)
             return;
+
+        characterAnimator.SetTrigger(_animIDHit);
 
         StartCoroutine(OnHitCO());
     }
