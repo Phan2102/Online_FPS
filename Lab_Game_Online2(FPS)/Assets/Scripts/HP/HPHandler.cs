@@ -115,13 +115,13 @@ public class HPHandler : NetworkBehaviour
 
         HP -= damageAmount;
 
-        Debug.Log($"{Time.time} {transform.name} took damage got {HP} left ");
+        //Debug.Log($"{Time.time} {transform.name} took damage got {HP} left ");
 
         if (HP <= 0)
         {
             networkInGameMessages.SendInGameRPCMessage(damageCausedByPlayerNickName, $"da giet <b>{networkPlayer.nickName.ToString()}</b>");
 
-            Debug.Log($"{Time.time} {transform.name} da chet ");
+            //Debug.Log($"{Time.time} {transform.name} da chet ");
 
             StartCoroutine(ServerReviveCO());
 

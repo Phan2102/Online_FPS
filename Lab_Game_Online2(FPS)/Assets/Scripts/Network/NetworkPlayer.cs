@@ -107,14 +107,14 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             RPC_SetNickName(GameManager.instance.playerNickName);
 
-            playerNickNameTM.gameObject.SetActive(false);
+            playerNickNameTM.gameObject.SetActive(true);
 
             Debug.Log("Spawned local player");
         }
         else
         {
             if(Object.HasStateAuthority && isBot)
-                nickName = $"Bot{Random.Range(0,1000)}";
+                nickName = $"Bot{Random.Range(0,100)}";
 
             localCameraHandler.localCamera.enabled = false;
             localCameraHandler.gameObject.SetActive(false);
@@ -149,7 +149,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     
     private void OnNickNameChanged()
     {
-        Debug.Log($"Nick name changed for player to {nickName} for player {gameObject.name}");
+        //Debug.Log($"Nick name changed for player to {nickName} for player {gameObject.name}");
 
         playerNickNameTM.text = nickName.ToString();
     }

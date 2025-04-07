@@ -15,10 +15,7 @@ public class UIShooter : MonoBehaviour
         // Lấy NetworkRunner từ NetworkRunnerCallback
         runner = FindObjectOfType<NetworkRunner>();
         if (runner == null)
-        {
-            Debug.LogError("Không tìm thấy NetworkRunner trong scene!");
             return;
-        }
 
         NetworkObject localPlayer = runner.GetPlayerObject(runner.LocalPlayer);
         if (localPlayer != null)

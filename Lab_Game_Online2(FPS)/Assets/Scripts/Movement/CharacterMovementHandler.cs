@@ -116,7 +116,7 @@ public class CharacterMovementHandler : NetworkBehaviour
         {
             if (Object.HasStateAuthority)
             {
-                Debug.Log($"{Time.time} respawn due to fall outside...... {transform.position}");
+               //Debug.Log($"{Time.time} respawn due to fall outside...... {transform.position}");
 
                 networkInGameMessages.SendInGameRPCMessage(networkPlayer.nickName.ToString(), "bi roi xuong");
 

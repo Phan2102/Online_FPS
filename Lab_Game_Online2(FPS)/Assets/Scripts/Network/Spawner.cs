@@ -40,7 +40,7 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
 
         int numberOfBotsToSpawn = 3;
 
-        Debug.Log($"so bot dc spawn {numberOfBotsToSpawn}. {botList}. {Runner.SessionInfo.PlayerCount}");
+        //Debug.Log($"so bot dc spawn {numberOfBotsToSpawn}. {botList}. {Runner.SessionInfo.PlayerCount}");
 
         for(int i = 0; i < numberOfBotsToSpawn; i++)
         {
