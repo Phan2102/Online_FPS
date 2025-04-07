@@ -773,9 +773,9 @@ RectTransform:
   - {fileID: 513183904}
   m_Father: {fileID: 1854291923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 320, y: -534}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -247, y: 0}
   m_SizeDelta: {x: 375, y: 650}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1128144384
@@ -1628,18 +1628,13 @@ MonoBehaviour:
   m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SortKey: 4274718713
   ObjectInterest: 1
-  DefaultInterestGroups: []
-  DestroyWhenStateAuthorityLeaves: 0
-  AllowStateAuthorityOverride: 1
-  AoiPositionSource: {fileID: 0}
   Flags: 2561
-  NetworkGuid:
-    RawGuidValue: da40ea6682264dd5bdf36a999261eaee
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 1854291925}
-  SimulationBehaviours: []
+  ForceRemoteRenderTimeframe: 0
 --- !u!114 &1854291925
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1652,9 +1647,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3938126a01a74954aa4c717c737fdff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WordOffset: 0
-  WordCount: 0
-  _interpolationDataSource: 0
   buttonReadyText: {fileID: 807673297}
   countDownText: {fileID: 891778165}
 --- !u!1001 &2124572163
