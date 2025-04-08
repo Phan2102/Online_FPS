@@ -14,7 +14,9 @@ public class WeaponHandler : NetworkBehaviour
     public ParticleSystem fireParticleSystem;
     public ParticleSystem fireParticleSystemRemotePlayer;
 
-    public TextMeshProUGUI refillUIText;
+    [Header("Sounds")]
+    public AudioSource FireSound;
+    public AudioSource AmmoSound;
 
     [Header("Aim")]
     public Transform aimPoint;
@@ -22,6 +24,7 @@ public class WeaponHandler : NetworkBehaviour
     [Header("Collision")]
     public LayerMask collisionLayers;
 
+    public TextMeshProUGUI refillUIText;
 
     [Networked]
     public bool isFiring { get; set; }
@@ -236,6 +239,7 @@ public class WeaponHandler : NetworkBehaviour
             currentRocketAmmo = maxRocketAmmo;
             refillUIText.text = "Đạn rocket đã đầy";
             StartCoroutine(HideRefillText());
+            AmmoSound.PlayOneShot(AmmoSound.clip);
         }
     }
     IEnumerator HideRefillText()
@@ -247,7 +251,7 @@ public class WeaponHandler : NetworkBehaviour
     {
         isFiring = true;
 
-        
+        FireSound.PlayOneShot(FireSound.clip);
 
         if (networkPlayer.is3rdPersonCamera)
             fireParticleSystemRemotePlayer.Play(); 

@@ -9,6 +9,9 @@ public class CharacterMovementHandler : NetworkBehaviour
     [Header("Animation")]
     public Animator characterAnimator;
 
+    [Header("Sounds")]
+    public AudioSource FootstepSound;
+
     bool isRespawnRequested = false;
 
     float walkSpeed = 0;
@@ -50,6 +53,7 @@ public class CharacterMovementHandler : NetworkBehaviour
                return;
         }
 
+        FootstepSound.enabled = walkSpeed > 0.1f;
         Vector2 movementInput = Vector2.zero;
         Vector3 aimForward = Vector3.zero;
         bool isJumpPressed = false;
@@ -103,10 +107,11 @@ public class CharacterMovementHandler : NetworkBehaviour
 
             characterAnimator.SetFloat("walkSpeed", walkSpeed);
 
-            
-             //ktra co bi roi khoi world ko
+          
+            //ktra co bi roi khoi world ko
             CheckFallRespawn();
         }
+       
     }
 
    

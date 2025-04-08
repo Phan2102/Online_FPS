@@ -202,8 +202,8 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
 
     public void OnSceneLoadDone(NetworkRunner runner) 
     {
-        if (SceneManager.GetActiveScene().name != "Ready" && runner.IsServer)
-            SpawnBots();
+       /* if (SceneManager.GetActiveScene().name != "Ready" && runner.IsServer)
+            SpawnBots();*/
     }
 
     public void OnSceneLoadStart(NetworkRunner runner) { }
