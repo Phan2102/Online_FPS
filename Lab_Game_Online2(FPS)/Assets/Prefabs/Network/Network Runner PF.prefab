@@ -60,6 +60,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1338618168131919685, guid: 6c7ad724d4b4ca249b054fa6b0b2892d,
     type: 3}
+  healingItemPrefab: {fileID: 4982322299869021188, guid: b902b777329e40844943555233aa9a40,
+    type: 3}
+  spawnInterval: 10
+  maxHealingItems: 7
 --- !u!114 &7754308508352696696
 MonoBehaviour:
   m_ObjectHideFlags: 0

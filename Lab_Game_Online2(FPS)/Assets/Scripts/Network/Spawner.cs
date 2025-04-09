@@ -1,14 +1,23 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
 using System;
 using UnityEngine.SceneManagement;
+using System.Security.Cryptography;
+using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
 {
     public NetworkPlayer playerPrefab;
+
+    public GameObject healingItemPrefab;
+    public float spawnInterval = 10f; 
+    public int maxHealingItems = 7; 
+
+    List<GameObject> spawnedHealingItems = new List<GameObject>();
 
     Dictionary<int, NetworkPlayer> mapTokenIDWithNetworkPlayer;
 
@@ -30,9 +39,31 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(SpawnHealingItemsRoutine());
     }
+    void SpawnHealingItem()
+    {
+        if (spawnedHealingItems.Count >= maxHealingItems)
+            return;
 
+        Vector3 randomPosition = Utils.GetRandomSpawnPoint(); 
+        GameObject healingItem = Instantiate(healingItemPrefab, randomPosition, Quaternion.identity);
+        spawnedHealingItems.Add(healingItem);
+
+        healingItem.GetComponent<HealingItem>().Invoke(nameof(RemoveHealingItem), 0f);
+    }
+    private IEnumerator SpawnHealingItemsRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(spawnInterval);
+            SpawnHealingItem();
+        }
+    }
+    void RemoveHealingItem(GameObject healingItem)
+    {
+        spawnedHealingItems.Remove(healingItem);
+    }
     void SpawnBots()
     {
         if(isBotSpawned)
@@ -202,8 +233,8 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
 
     public void OnSceneLoadDone(NetworkRunner runner) 
     {
-       /* if (SceneManager.GetActiveScene().name != "Ready" && runner.IsServer)
-            SpawnBots();*/
+        if (SceneManager.GetActiveScene().name != "Ready" && runner.IsServer)
+            SpawnBots();
     }
 
     public void OnSceneLoadStart(NetworkRunner runner) { }
