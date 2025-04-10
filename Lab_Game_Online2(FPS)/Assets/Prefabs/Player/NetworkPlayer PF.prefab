@@ -707,6 +707,8 @@ MonoBehaviour:
   localCameraHandler: {fileID: 4809049581717068269}
   localUI: {fileID: 9035734229081002703}
   isBot: 0
+  _score: 0
+  scoreText: {fileID: 8520669546557552222}
 --- !u!114 &6424883600345589495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6702,6 +6704,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 6081363749264669650}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8520669546557552222 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2475334732046830988, guid: f5d6dbb214c5f724f8bd28cc145922be,
+    type: 3}
+  m_PrefabInstance: {fileID: 6081363749264669650}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8778368484362706339 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3293925440560293489, guid: f5d6dbb214c5f724f8bd28cc145922be,

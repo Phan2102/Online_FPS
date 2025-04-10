@@ -5,9 +5,7 @@ using Fusion;
 using Fusion.Sockets;
 using System;
 using UnityEngine.SceneManagement;
-using System.Security.Cryptography;
-using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
+
 
 public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
 {
@@ -39,7 +37,7 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(SpawnHealingItemsRoutine());
+        
     }
     void SpawnHealingItem()
     {
@@ -50,7 +48,7 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
         GameObject healingItem = Instantiate(healingItemPrefab, randomPosition, Quaternion.identity);
         spawnedHealingItems.Add(healingItem);
 
-        healingItem.GetComponent<HealingItem>().Invoke(nameof(RemoveHealingItem), 0f);
+        healingItem.GetComponent<HealingItem>().Initialize(this);
     }
     private IEnumerator SpawnHealingItemsRoutine()
     {
@@ -60,18 +58,20 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
             SpawnHealingItem();
         }
     }
-    void RemoveHealingItem(GameObject healingItem)
+    public void RemoveHealingItem(GameObject healingItem)
     {
-        spawnedHealingItems.Remove(healingItem);
+        if (spawnedHealingItems.Contains(healingItem))
+        {
+            spawnedHealingItems.Remove(healingItem);
+        }
     }
+ 
     void SpawnBots()
     {
         if(isBotSpawned)
             return;
 
         int numberOfBotsToSpawn = 3;
-
-        //Debug.Log($"so bot dc spawn {numberOfBotsToSpawn}. {botList}. {Runner.SessionInfo.PlayerCount}");
 
         for(int i = 0; i < numberOfBotsToSpawn; i++)
         {
@@ -234,7 +234,10 @@ public class Spawner : SimulationBehaviour, INetworkRunnerCallbacks
     public void OnSceneLoadDone(NetworkRunner runner) 
     {
         if (SceneManager.GetActiveScene().name != "Ready" && runner.IsServer)
+        {
             SpawnBots();
+            StartCoroutine(SpawnHealingItemsRoutine());
+        }
     }
 
     public void OnSceneLoadStart(NetworkRunner runner) { }

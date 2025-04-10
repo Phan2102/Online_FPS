@@ -32,6 +32,11 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
     //camera mode
     public bool is3rdPersonCamera { get; set; }
 
+    [Networked]
+    public int score { get; set; }
+
+    public TextMeshProUGUI scoreText; 
+
     //component
     NetworkInGameMessages networkInGameMessages;
 
@@ -201,6 +206,14 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 
             if (Object.HasStateAuthority)
                 GetComponent<CharacterMovementHandler>().RequestRespawn();
+        }
+    }
+
+    public void UpdateScoreUI()
+    {
+        if (Object.HasInputAuthority && scoreText != null)
+        {
+            scoreText.text = $"Score: {score}";
         }
     }
 }

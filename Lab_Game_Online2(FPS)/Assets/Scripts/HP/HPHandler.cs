@@ -126,15 +126,28 @@ public class HPHandler : NetworkBehaviour
 
         if (HP <= 0)
         {
-            networkInGameMessages.SendInGameRPCMessage(damageCausedByPlayerNickName, $"da giet <b>{networkPlayer.nickName.ToString()}</b>");
-
-            //Debug.Log($"{Time.time} {transform.name} da chet ");
+            networkInGameMessages.SendInGameRPCMessage(damageCausedByPlayerNickName, $"đã giết <b>{networkPlayer.nickName.ToString()}</b>");
 
             StartCoroutine(ServerReviveCO());
 
             isDead = true;
+
+            foreach (var player in FindObjectsOfType<NetworkPlayer>())
+            {
+                if (player.nickName.ToString() == damageCausedByPlayerNickName)
+                {
+                    if (networkPlayer.isBot) 
+                    {
+                        player.score += 10; 
+                        player.UpdateScoreUI(); 
+                    }
+
+                    break;
+                }
+            }
         }
     }
+    
 
     void OnHPChanged(byte previous, byte current)
     {
